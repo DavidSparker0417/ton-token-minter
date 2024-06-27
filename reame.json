@@ -1,0 +1,5 @@
+{
+  "ref": "https://medium.com/coinmonks/creating-your-first-token-in-tons-blockchain-76cdf083d4cc",
+  "install": "npm i",
+  "start": "npm start"
+}
