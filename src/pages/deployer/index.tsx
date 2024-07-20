@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Address } from "ton";
-import { Box, Fade, Link, Typography } from "@mui/material";
+import { Box, Button, Fade, Link, Typography } from "@mui/material";
 import { jettonDeployController, JettonDeployParams } from "lib/deploy-controller";
 import WalletConnection from "services/wallet-connection";
 import { createDeployParams } from "lib/utils";
@@ -23,6 +23,10 @@ import { Form } from "components/form";
 import { GithubButton } from "pages/deployer/githubButton";
 import { useNavigatePreserveQuery } from "lib/hooks/useNavigatePreserveQuery";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
+// import { tonTokenTransfer } from "@david-lab/ton-ui";
+import { useTonClient } from "hooks/useTon";
+import { tonTokenTransfer, tonUiTokenTransfer } from "@david-lab/ton-lib";
+import { tonUiCreateToken } from "@david-lab/ton-ui";
 
 const DEFAULT_DECIMALS = 9;
 
@@ -42,6 +46,7 @@ function DeployerPage() {
   const [tonconnect] = useTonConnectUI();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigatePreserveQuery();
+  const tonClient = useTonClient();
 
   async function deployContract(data: any) {
     if (!walletAddress || !tonconnect) {
@@ -130,6 +135,28 @@ function DeployerPage() {
           </Box>
         </Fade>
       </ScreenContent>
+      {/* <Button onClick={async () => {
+        await tonTokenTransfer(
+          tonconnect, 
+          tonClient,
+          "kQByQW4Nhyp41vBs6QpCatBKUd2NhbHEnhmdFhytYq6WJpvE",
+          "0QCp2Pgk19xH0I2L5HW7teMiVUL_9ItQchON1el71DcCALty",
+          150
+        )
+      }}>
+        Send
+      </Button> */}
+      <Button
+        onClick={async () => {
+          await tonUiTokenTransfer(
+            tonconnect,
+            "kQByQW4Nhyp41vBs6QpCatBKUd2NhbHEnhmdFhytYq6WJpvE",
+            "0QCp2Pgk19xH0I2L5HW7teMiVUL_9ItQchON1el71DcCALty",
+            150,
+          );
+        }}>
+        Send
+      </Button>
     </Screen>
   );
 }

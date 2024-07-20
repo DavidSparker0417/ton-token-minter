@@ -15,6 +15,7 @@ import { readJettonMetadata, changeAdminBody, JettonMetaDataKeys } from "./jetto
 import { getClient } from "./get-ton-client";
 import { cellToAddress, makeGetCall } from "./make-get-call";
 import { SendTransactionRequest, TonConnectUI } from "@tonconnect/ui-react";
+import { tonUiCreateToken } from "@david-lab/ton-ui";
 
 export const JETTON_DEPLOY_GAS = toNano(0.25);
 
@@ -61,7 +62,18 @@ class JettonDeployController {
     if (await tc.isContractDeployed(contractAddr)) {
       // params.onProgress?.(JettonDeployState.ALREADY_DEPLOYED);
     } else {
-      await contractDeployer.deployContract(deployParams, tonConnection);
+      await tonUiCreateToken(
+        {
+          name: params.onchainMetaData?.name,
+          symbol: params.onchainMetaData?.symbol,
+          description: params.onchainMetaData?.description,
+          image: params.onchainMetaData?.image,
+          decimals: params.onchainMetaData?.decimals,
+        },
+        tonConnection,
+        300000000,
+      );
+      // await contractDeployer.deployContract(deployParams, tonConnection);
       // params.onProgress?.(JettonDeployState.AWAITING_MINTER_DEPLOY);
       await waitForContractDeploy(contractAddr, tc);
     }

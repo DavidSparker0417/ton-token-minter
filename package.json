@@ -5,6 +5,8 @@
   "homepage": "https://minter.ton.org/",
   "dependencies": {
     "@aws-crypto/sha256-js": "^2.0.2",
+    "@david-lab/ton-lib": "^1.0.59",
+    "@david-lab/ton-ui": "^1.0.14",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.8.2",
@@ -14,7 +16,8 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "@tonconnect/ui-react": "^1.0.0-beta.6",
+    "@ton/ton": "^14.0.0",
+    "@tonconnect/ui-react": "^2.0.6",
     "@types/jest": "^27.5.1",
     "@types/node": "^16.11.36",
     "@types/react": "^18.0.9",
